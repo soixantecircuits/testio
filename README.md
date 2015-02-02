@@ -12,7 +12,7 @@ That is all...
 
 `cp config.example.json config.json`
 
-Then edit the `config.json` file
+Go to : http://instagram.com/developer/clients/manage/ and create an app then edit the `config.json` file and save.
 
 ## Run
 
