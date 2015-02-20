@@ -5,6 +5,7 @@ var ig = require('instagram-node').instagram(),
   remind = new Reminder(),
   mkdirp = require('mkdirp'),
   config = require('./config.json'),
+  Repeat = require('repeat'),
   tagArray = ['cow','cool','beauty','love'];
 // Every call to `ig.use()` overrides the `client_id/client_secret`
 // or `access_token` previously entered if they exist.
@@ -49,7 +50,9 @@ var searchAndSave = function(tag) {
 remind.every('minute', function(date) {
     var selectedTag = getRandom(tagArray);
     console.log('Fetch: ', selectedTag);
-    searchAndSave(selectedTag);    
+    Repeat(function(){
+      searchAndSave(selectedTag);      
+    }).every(450, 'ms').for(32, 's').start.now();
 });
 
 searchAndSave('love');    
