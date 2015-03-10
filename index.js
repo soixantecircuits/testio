@@ -16,7 +16,7 @@ ig.use({
 });
 
 
-    
+
 mkdirp('./tmp/', function (err) {
     if (err) console.error(err)
     else console.log('pow!')
@@ -39,7 +39,7 @@ var searchAndSave = function(tag) {
       image = medias.images.standard_resolution.url;
     console.log(image);
 
-    var ws = fs.createWriteStream('./tmp/' + tag + '_' + Date.now() + '.jpg');
+    var ws = fs.createWriteStream('./tmp/' + config.namespace + '/' + tag + '_' + Date.now() + '.jpg');
     ws.on('error', function(err) {
       console.log(err);
     });
@@ -51,9 +51,9 @@ remind.every('minute', function(date) {
     var selectedTag = getRandom(tagArray);
     console.log('Fetch: ', selectedTag);
     Repeat(function(){
-      searchAndSave(selectedTag);      
+      searchAndSave(selectedTag);
     }).every(450, 'ms').for(32, 's').start.now();
 });
 
-searchAndSave('love');    
+searchAndSave('love');
 console.log('Running...');
