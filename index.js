@@ -15,7 +15,6 @@ ig.use({
   client_secret: config.client_secret
 });
 
-
     
 mkdirp('./tmp/', function (err) {
     if (err) console.error(err)
@@ -39,7 +38,8 @@ var searchAndSave = function(tag) {
       image = medias.images.standard_resolution.url;
     console.log(image);
 
-    var ws = fs.createWriteStream('./tmp/' + tag + '_' + Date.now() + '.jpg');
+
+    var ws = fs.createWriteStream(config.destinationPath + tag + '_' + Date.now() + '.jpg');
     ws.on('error', function(err) {
       console.log(err);
     });
@@ -55,5 +55,5 @@ remind.every('minute', function(date) {
     }).every(450, 'ms').for(32, 's').start.now();
 });
 
-searchAndSave('love');    
+searchAndSave('animal');    
 console.log('Running...');
