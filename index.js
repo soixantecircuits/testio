@@ -6,7 +6,7 @@ var ig = require('instagram-node').instagram(),
   mkdirp = require('mkdirp'),
   config = require('./config.json'),
   Repeat = require('repeat'),
-  tagArray = ['cow','cool','beauty','love'];
+  tagArray = ['animal','cool'];
 
 // Every call to `ig.use()` overrides the `client_id/client_secret`
 // or `access_token` previously entered if they exist.
@@ -16,19 +16,13 @@ ig.use({
   client_secret: config.client_secret
 });
 
-mkdirp('./tmp/', function (err) {
+var destination = config.destinationPath + '/' + config.namespace + '/';
+
+mkdirp(destination, function (err) {
   if(err){
     console.error(err);
   }else{
     console.log('pow!');
-  }
-});
-
-mkdirp('./tmp/' + config.namespace, function (err) {
-  if(err){
-    console.error(err);
-  }else{
-    console.log('working on namespace:', config.namespace);
   }
 });
 
@@ -46,7 +40,7 @@ var searchAndSave = function(tag) {
     var image = medias.images.standard_resolution.url;
     console.log(image);
 
-    var ws = fs.createWriteStream('./tmp/' + config.namespace + '/' + tag + '_' + Date.now() + '.jpg');
+    var ws = fs.createWriteStream(destination + tag + '_' + Date.now() + '.jpg');
     ws.on('error', function (err) {
       console.log(err);
     });
